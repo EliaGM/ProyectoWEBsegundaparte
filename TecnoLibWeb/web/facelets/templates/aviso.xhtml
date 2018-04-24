@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div>
+                <div id="pnAviso">
+                    <img src="../../resources/images/info.png"/>
+                    <b><h:outputText value="#{msg.err_pago}" rendered="#{datosSesion.prod_erroneos.size()>0}"/></b>
+                    <b><h:outputText value="#{msg.info_baja}" rendered="#{datosSesion.baja}"/></b>
+                </div>
+                
+                <p><h:outputText value="#{msg.desc_err_libro}"  rendered="#{datosSesion.prod_erroneos.size()>0}"/></p>
+                <p><h:outputText value="#{msg.save_baja}"  rendered="#{datosSesion.baja}"/></p>
+                <p><h:outputText value="#{msg.datos_baja}"  rendered="#{datosSesion.baja}"/></p>
+                <h:dataTable value="#{datosSesion.prod_erroneos}" var="desca" 
+                             cellpadding="2" cellspacing="0" 
+                             border="1" 
+                             columnClasses="DescCol1,DescCol2,DescCol3"
+                             styleClass="DescTable"
+                             headerClass="DescCaption"
+                             rowClasses="#{tiendaBean.filas_aviso}"
+                             rendered="#{datosSesion.prod_erroneos.size()>0}">
+                    <h:column>
+                        <f:facet name="header"><h:outputText value="#{msg.isbn}"/></f:facet>
+                        <h:outputText value="#{desca.isbn}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"><h:outputText value="#{msg.title}"/></f:facet>
+                        <h:outputText value="#{desca.titulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"><h:outputText value="#{msg.estado}"/></f:facet>
+                        <h:outputText value="#{desca.stock_actual!=-1 ? desca.stock_actual : msg.descatalogado}" />
+                    </h:column>
+
+                </h:dataTable>
+                <h:commandButton value="#{msg.aceptar}" rendered="#{datosSesion.prod_erroneos.size()>0}" styleClass="btncuadrado">
+                    <f:ajax render="@form" execute="@form" listener="#{tiendaBean.err_aviso_eliminado}" />
+                </h:commandButton>
+                <h:commandButton value="#{msg.aceptar}" rendered="#{datosSesion.baja}" styleClass="btncuadrado">
+                    <f:ajax render="@form" execute="@form" listener="#{tiendaBean.AceptarAccion}" />
+                </h:commandButton>
+                <h:commandButton value="#{msg.cancelar}" rendered="#{datosSesion.baja}" styleClass="btncuadrado">
+                    <f:ajax render="@form" execute="@form" listener="#{tiendaBean.CancelarAccion}" />
+                </h:commandButton>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>

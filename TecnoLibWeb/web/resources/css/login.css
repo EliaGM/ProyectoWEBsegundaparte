@@ -1,0 +1,194 @@
+
+
+#tdselect *{
+    margin-top:30px;
+}
+.btnmedium{
+    margin-left:160px;
+    margin-top:15px;
+}
+#tdLink *:hover{
+    text-decoration: underline;
+}
+#tdLink *{
+    padding-top:5px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color:white;
+    
+}
+
+.tbRegistro{
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 5px;
+    padding-right: 10px;
+    
+    
+}
+.tbRegistro b{
+    padding-right: 10px;
+    
+}
+.tbRegistro tr{
+    height: 15px;
+    padding: 3px;
+    font-size: 11px;
+}
+
+#registro{
+    padding: 0;
+    width: 400px;
+    height: 500px;
+    margin: 0 auto;
+    background-color: white;
+    position:relative;
+    padding-bottom: 20px;
+    border: 1px gray solid;
+    border-radius: 4em;
+    box-shadow: 5px 5px 5px #888888;
+    z-index: 0;
+}
+
+#registro > div:first-child{
+    text-align: center;
+    color:white;
+    background: black;
+    border-top-left-radius: 4em;
+    border-top-right-radius: 4em;
+}
+#ult_reg{
+    text-align: center;
+    color:white;
+    background: black;
+    border-bottom-left-radius: 4em;
+    border-bottom-right-radius: 4em;
+    height: 90px;
+}
+#ult_reg > table{
+    padding-top: 30px;
+    padding-left: 15px; 
+}    
+
+.inputs_login{
+    width:210px;
+    margin-left:-10px;
+    border-radius: 0.5em;
+    box-shadow: 1px 1px 5px #888888;
+    margin-left:10px;
+}
+.inputs_invalid{
+    width:160px;
+    font-size: 11px;
+    height: auto;
+    padding-left:10px;
+    margin: 0;
+    border: 1px solid white;
+    border-radius: 0;
+    border:1px solid red; background:red;color:white;font-weight:bold;
+}
+.inputs_valid{
+    width:160px;
+    font-size: 11px;
+    height: auto;
+    padding-left:10px;
+    margin: 0;
+    border: 1px solid white;
+    border-radius: 0;
+    box-shadow: 1px 1px 1px #888888;
+    background: #e6e6e6;
+    color:black;
+    font-weight:bold;
+}
+#adjbtnlogin{
+    margin-left:140px;
+    margin-top:15px;
+    margin-bottom: 10px;
+}
+#divlogin > div:last-child table{
+    width:auto;
+    height:auto;
+    background-color: black;
+    color:white;
+    float:left;
+    margin-top:-18px;
+}
+#divlogin > div:last-child{
+    margin-top:30px;
+    padding-left:30px;
+    height:80px;
+    background-color: black;
+    border-bottom-right-radius: 4em;
+    border-bottom-left-radius: 4em;
+    border-top-right-radius: 0em 4em;
+    border-top-left-radius: 0em 4em;
+}
+#error{
+    text-align: center;
+}
+#divlogin table th{
+    width:20px;
+    text-align: left;
+}
+#divlogin table tr{
+    height:25px;
+}
+#divlogin table{
+    position:relative;
+    padding: 0;
+    height: 200px;
+    margin: 0 auto;
+    background-color: white;
+    margin-top:40px;
+
+}
+#divlogin > div b{
+    color:white;
+    margin-left: 20px;
+    letter-spacing: 10px;
+}
+
+#divlogin > div{
+    padding-top:20px;
+    height:90px;
+    background-color: black;
+    border-top-right-radius: 4em;
+    border-top-left-radius: 4em;
+    border-bottom-right-radius: 0em 4em;
+    border-bottom-left-radius: 0em 4em;
+}
+#divlogin{
+    padding: 0;
+    width: 400px;
+    height: 500px;
+    margin: 0 auto;
+    background-color: white;
+    position:relative;
+    padding-bottom: 20px;
+    border: 1px gray solid;
+    border-radius: 4em;
+    box-shadow: 5px 5px 5px #888888;
+    z-index: 0;
+}
+
+.mensaje > *{
+    float:right;
+}
+.mensaje{
+    background-color: black;
+    width:260px;
+    height:50px;
+    color:white;
+    float:right;
+    z-index:100;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 0.5em;
+    padding:5px;
+    border: 1px white solid;
+    margin-top:-30px;
+    font-size: 11px;
+    box-shadow: 2px 2px 5px #888888;
+    display:block;
+}
+

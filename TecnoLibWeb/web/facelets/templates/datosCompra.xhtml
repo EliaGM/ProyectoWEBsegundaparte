@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <table cellspacing="0" cellpadding="0"  id="tbCarrito">
+                <tr>
+                    <td>
+                        <table cellspacing="0" cellpadding="0" width="806" style="float:left;">
+                            <tr>
+                                <th style='width:75px;'>#{msg.isbn}</th>
+                                <th>#{msg.title}</th>
+                                <th>#{msg.author}</th>
+                                <th style='width:60px;'>#{msg.items}</th>
+                                <th style='width:80px;'>#{msg.price}</th>
+                                <th style='width:60px;'>#{msg.delete}</th>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="width:806px; height:195px; overflow:scroll;float:left;margin-top: 10px">
+                            <h:dataTable cellspacing="0" cellpadding="1"  width="806" 
+                                         id="tbItems" value="#{datosSesion.items}" var="it" 
+                                         columnClasses="tbItemscol1,tbItemscol2,tbItemscol3,tbItemscol4,tbItemscol5,tbItemscol6">
+                                <h:column>
+                                    <h:outputText value="#{it.isbn}" style="#{it.err_stock ? 'color:red':'color:black'}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{it.titulo}" style="#{it.err_stock ? 'color:red':'color:black'}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{it.autor}" style="#{it.err_stock ? 'color:red':'color:black'}"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value=" - " style='width: 10px;height: 20px;'>
+                                        <f:ajax listener="#{tiendaBean.Minimo(it)}" render="@form" execute="@form"/>
+                                    </h:commandButton>
+                                    <h:outputText value="#{it.unidades}" style='padding-left:20px; padding-right: 10px;' id='txt_unidades'/>
+                                    <h:commandButton value=" + " style='width: 10px;height: 20px'>
+                                        <f:ajax listener="#{tiendaBean.Maximo(it)}" render="@form" execute="@form"/>
+                                    </h:commandButton>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{it.total}" id="it_total"/>
+                                </h:column>
+                                <h:column>
+                                    <h:commandLink><img src="../resources/images/eliminar.png"/>
+                                        <f:ajax listener="#{tiendaBean.Eliminar(it)}"  execute=":form1:datosCompra :form1:iconos" render=":form1:datosCompra :form1:iconos"/>
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable> 
+                        </div>
+                        <h:panelGrid cellspacing="3" cellpadding="5"  width="806" id="tbTotal" columns="3"
+                                     columnClasses="tbTotalcol1,tbTotalcol2">
+                            <h:column>
+                                <h:outputText value="#{msg.total}" id="tdTotal"/>
+                                <h:outputText value="#{datosSesion.total}" id="tdPrecio"/>
+                                <h:outputText value="#{msg.currency}" id="tdEuros"/>
+                                
+                            </h:column>
+                            <h:column>
+                                <h:commandButton value="#{msg.comprar}" 
+                                                 disabled="#{datosSesion.items.size() == 0 or datosSesion.err_stock or datosSesion.prod_erroneos.size()>0}"
+                                                 styleClass="btncuadrado">
+                                    <f:ajax listener="#{tiendaBean.realizarCompra}" render="@form" execute="@form" immediate="true"/>
+                                </h:commandButton>
+                            </h:column>
+                            <h:column>
+                                <h:commandButton value="#{msg.vaciar}"  
+                                                 disabled="#{datosSesion.items.size() == 0}"
+                                                 styleClass="btncuadrado">
+                                    <f:ajax listener="#{tiendaBean.clear}" render="@form" execute="@form"/>
+                                </h:commandButton>
+                            </h:column>
+                        </h:panelGrid> 
+                    </td>
+                </tr>
+            </table>
+        </ui:composition>
+    </h:body>
+</html>
+

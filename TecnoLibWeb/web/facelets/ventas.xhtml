@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <f:loadBundle basename="mensajes.genericos" var="msg" />
+    <h:head>
+        <title>Consulta de las Ventas</title>
+        <h:outputStylesheet name="css/comunes.css" />
+        <h:outputScript name="js/generales.js" />
+    </h:head>
+    <h:body>
+        <h:form prependId="false" id="form1">
+            <ui:include src="templates/cabecera.xhtml"/>
+
+            <div class="layoutVentas">
+                <table style="height: 50px;margin-left: 100px">
+                    
+                    <tr>
+                        <td>
+                            <b><h:outputText value="#{msg.fecha}" /></b>
+                            <h:inputText value="#{ventasBean.fecha}" class="inputventas" id="fecha" binding="#{ventasBean.htmlfecha}"
+                                         autocomplete="off">
+                                <f:validator validatorId="validarFecha"/>
+                            </h:inputText>
+                            
+                        </td>
+                        <td>
+                            <h:commandButton value="#{msg.filter}" actionListener="#{ventasBean.realizarFiltro()}"/>
+                        </td>
+                        <td>
+                            <h:commandButton value="#{msg.showall}">
+                                <f:ajax listener="#{ventasBean.mostrarTodos()}" render=":form1:tbVentas" immediate="true"/>
+                            </h:commandButton>
+                        </td>
+                        <td>
+                            <h:commandButton value="#{msg.back}" action="#{ventasBean.salir}" immediate="true"/>
+                        </td>
+                    </tr>
+                    
+                </table>
+                <div style="height: 20px; width: 250px;margin-left: 100px">
+                    <h:message for="fecha"  class="error" style="margin-left: 40px"/>
+                </div>
+
+                <h:dataTable value="#{ventasBean.ventas}"  style="margin-top: 30px"
+                             var="d" id="tbVentas" cellpadding="5"
+                             first="0" headerClass="ventasHeader">
+                    <f:facet name="caption">
+                        <h:outputText value="#{ventasBean.fecha!=null?ventasBean.fecha:ventasBean.ventas.size()>0?msg.todasventas:msg.sinresultados}" style="font-size: 20px; margin-bottom: 10px"/>
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.idprod}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.idproducto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.isbn}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.isbn}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.title}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.titulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.author}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.autor}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.pre_un}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.precio} * #{d.unidades} "/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.total}"/>
+                        </f:facet>
+                        <h:outputText value="#{ventasBean.df.parse(d.producto.precio*d.unidades)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.user}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.recibo.cliente==null?msg.eliminado:d.recibo.cliente.usuario}"
+                                      style="#{d.recibo.cliente==null?'color:red':''}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.fecha}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.recibo.fecha}">
+                            <f:convertDateTime  pattern="yyyy-MM-dd" timeZone="CET"/>
+                        </h:outputText>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

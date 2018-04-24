@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div id="divtbRecibos">
+                <h:dataTable cellspacing="0" cellpadding="0"  id="tbRecibos" 
+                             value="#{historicoBean.recibos}" var="r" first="0"
+                             rowClasses="tbRecibosRow1,tbRecibosRow2">
+
+                    <h:column>
+                        <h:commandLink class="linkRecibos">
+                            <h:panelGrid columns="4" columnClasses="tbrebcol1,tbrebcol2,tbrebcol3,tbrebcol4" >
+                                <h:column><h:outputText value="Num. #{r.idrecibo}"/></h:column>
+                                <h:column>
+                                    <h:outputText value="#{r.fecha}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    </h:outputText>
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{r.total}"/>
+                                </h:column>
+                                <h:column><img src="../resources/images/recibo.png"/></h:column>
+                            </h:panelGrid>
+                            <f:ajax listener="#{historicoBean.Detalles(r.idrecibo)}" immediate="true" render=":form1:tbDetalle" execute=":form1:tbDetalle"/>
+                        </h:commandLink>
+                    </h:column>
+
+
+                </h:dataTable>
+            </div>
+            <div id="divtbDetalles">
+                <h:dataTable value="#{historicoBean.detalles}"
+                             var="d" id="tbDetalle" 
+                             first="0"
+                             styleClass="#{historicoBean.detalles==null?'hidetbDetalle':'showtbDetalle'}"
+                             rowClasses="tbDetallesRow"
+                             headerClass="tbDetallesHeader" 
+                             columnClasses="tbdetcol1,tbdetcol2,tbdetcol3,tbdetcol4,tbdetcol5,tbdetcol6">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.recibo}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.recibo.idrecibo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.isbn}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.isbn}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.title}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.titulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.author}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.autor}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.pre_un}"/>
+                        </f:facet>
+                        <h:outputText value="#{d.producto.precio} * #{d.unidades} "/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg.price}"/>
+                        </f:facet>
+                        <h:outputText value="#{historicoBean.df.parse(d.producto.precio*d.unidades)}"/>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

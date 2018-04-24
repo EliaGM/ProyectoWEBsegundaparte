@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:loadBundle basename="mensajes.genericos" var="msg" />
+    <h:head>
+        <h:outputStylesheet name="css/comunes.css" />
+        <h:outputStylesheet name="css/tienda.css" />
+        <h:outputScript name="js/generales.js" />
+        <title>TecnoLib.com</title>
+    </h:head>
+    
+    <h:body>
+        
+        <h:outputScript name="js/some.js" target="head"/>
+        <h:form prependId="false" id="form1">
+
+            <ui:include src="templates/cabecera.xhtml">
+                <ui:param name="iconos" value="true" />
+            </ui:include>
+            
+            <div id="centrado">
+               
+                <h:panelGroup id="aviso" rendered="#{datosSesion.prod_erroneos.size()>0 or datosSesion.baja}" >
+                    <ui:include src="templates/aviso.xhtml" />
+                </h:panelGroup>
+               
+                <h:panelGroup id="overlay" rendered="#{datosSesion.edtcomp  and (datosSesion.err_stock==false or datosSesion.prod_erroneos.size()==0)}">
+                    <ui:include src="templates/datosPago.xhtml" />
+                </h:panelGroup>
+                <h:panelGroup styleClass="#{(datosSesion.edtcomp  and (datosSesion.err_stock==false or datosSesion.prod_erroneos.size()==0))or datosSesion.baja ? 'layoutTienda2' : 'layoutTienda'}">
+                    <h:panelGroup styleClass='Datos' id="pnMenu">
+                        <div id="divMenu">
+                            <h:selectOneListbox value="#{datosSesion.tabActivo}"  styleClass="stab">
+                                <f:selectItems value="#{arraysBean.tabs}"
+                                               var="tabs" 
+                                               itemLabel="#{msg[tabs]}"
+                                               itemValue="#{tabs}"/>
+                                <f:ajax render="@form" execute="@form" listener="#{tiendaBean.cambioTab}"/>
+                            </h:selectOneListbox>
+                        </div>
+                        <h:panelGroup  id="datosCompra" rendered="#{datosSesion.tabActivo == 'compra'}">
+                            <ui:include src="templates/datosCompra.xhtml"/>
+                        </h:panelGroup>
+                        <h:panelGroup  id="historico" rendered="#{datosSesion.tabActivo == 'historico'}">
+                            <ui:include src="templates/historico.xhtml"/>
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+                    <h:panelGroup id="DatosProd" >
+                        <div style="float:left; margin-right: 10px; margin-top: 20px;">
+                            <h:panelGroup id="pnSeccion">
+                                <h:selectOneListbox value="#{datosSesion.seccion}"  id="select_seccion">
+                                    <f:selectItems value="#{arraysBean.secciones}"
+                                                   var="sec" 
+                                                   itemLabel="#{msg[sec.seccion]}"
+                                                   itemValue="#{sec.idseccion}" />
+                                    <f:ajax listener="#{tiendaBean.cambioSeccion()}" event="change"
+                                            render=":form1:dtProductos :form1:datosCompra :form1:welcome"/>
+                                </h:selectOneListbox>
+                            </h:panelGroup>
+                        </div>
+                        <h:dataTable value="#{tiendaBean.productos}" var="prod" id='dtProductos' cellpadding="0" cellspacing="0"
+                                     styleClass="prodTable" first="0"  binding="#{table}"
+                                     rowClasses="prodRow">
+                            <h:column>
+                                <h:graphicImage value="/images?idimagen=#{prod.idproducto}" width="80" height="130" styleClass="fotolibro"/>
+
+                                <div style="text-align: justify;  float:left; padding:0; margin-bottom: 30px;width:420px;padding-left: 10px; margin-top:20px;">
+                                    <h:outputText value="#{prod.titulo}" style="font-weight: bold;font-size: 14px"/><br/>
+                                    <h:outputText value="#{prod.autor}" style="font-weight: bold;color:gray; font-style: italic"/><br/>
+                                    <h:outputText value="ISBN: #{prod.isbn}" style="font-size: 10px;color:dimgray"/><br/>
+                                    <h:outputText value="#{prod.resumen}"/>
+                                    <h:panelGroup id="descprod">
+                                        <h:outputText value="..." rendered="#{prod.descripcion == null}" />
+                                        <h:outputText value="#{prod.descripcion}" rendered="#{prod.descripcion != null}" />
+                                        <h:panelGroup rendered="#{prod.descripcion != null}" style="color:grey; font-size: 11px; font-style: italic">
+                                            <hr/>
+                                            <h:outputText value="#{msg.editorial}: #{prod.editorial}"/><br/>
+                                            <h:outputText value="#{msg.year}: #{prod.año}"/><br/>
+                                            <h:outputText value="#{msg.pages}: #{prod.paginas}"/><br/>
+                                            <h:outputText value="#{msg.language}: #{msg[prod.lengua.idioma]}"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                    <br/>
+                                    <h:commandLink value="#{prod.descripcion != null? msg.hidedesc : msg.showdesc}" style="color:orange">
+                                        <f:ajax  listener="#{tiendaBean.mostrarDesc(table.rowIndex,prod.idproducto)}" 
+                                                 render="descprod :form1:DatosProd :form1:datosCompra :form1:welcome"/>
+                                    </h:commandLink>
+
+                                </div>
+                                <div style="background: white;margin-top: 20px; text-align: center">
+                                    <h:outputText value="#{prod.precio} #{msg.currency}" style="font-weight: bold;color:dimgray;font-size: 18px;"/><br/><br/>
+                                    <h:commandButton value="#{msg.buy}"   class="btncuadrado" style="font-size: 9px;"
+                                                     disabled="#{empty prod.stock or prod.stock == 0}">
+                                        <f:ajax  listener="#{tiendaBean.addCarrito(prod)}" render="@form" />
+                                    </h:commandButton><br/><br/>
+                                    <h:outputText value="#{prod.stock} #{msg.disponible}"  styleClass="#{prod.stock > 0 ? 'positive_stock' : 'negative_stock'}" id="prod_stock"/>
+                                </div>
+                                <div style="float:left;background: lightgray; height: 1px; width:730px"></div>
+
+                            </h:column>
+
+                        </h:dataTable> 
+                    </h:panelGroup>
+                    <div class="backfooter">
+                        <ui:include src="templates/pie.xhtml"/>
+                    </div>
+                </h:panelGroup>
+            </div>
+            
+        </h:form>
+
+
+    </h:body>
+</html>
+

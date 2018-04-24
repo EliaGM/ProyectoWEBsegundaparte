@@ -1,0 +1,263 @@
+
+#welcome{
+    padding:0;
+    margin:0;
+    float:left;
+    font-weight: bold;
+    background: black;
+    color:white;
+    padding:15px;
+}
+#Search{    
+    padding: 0;
+    width: 938px;
+    height: 40px;
+    margin: 0 auto;
+    margin-top:15px; 
+    position:relative;
+    background: white;
+}
+
+
+.error{
+    color:red;
+    font-weight: bold;
+}
+#dividioma{
+    float:right;
+    margin:0;
+    margin-top:-30px;
+}
+.btncuadrado:disabled{
+    background: -webkit-linear-gradient(#bebebe, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#bebebe, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#bebebe, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#bebebe, white); /* Standard syntax */
+    color:gray;
+}
+
+
+
+.btncuadrado:hover:enabled{
+    background: -webkit-linear-gradient(#bebebe, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#bebebe, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#bebebe, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#bebebe, white); /* Standard syntax */
+    color:black;
+}
+.btncuadrado{
+    width:110px;
+    height:30px;
+    box-shadow: 1px 1px 5px #888888;
+    background: -webkit-linear-gradient(#ffffff, #bebebe); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ffffff, #bebebe); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ffffff, #bebebe); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ffffff, #bebebe); /* Standard syntax */
+    border-radius: 0.5em;
+    font-weight: bold;
+    color: #363636;
+    font-size: 11px;
+    outline: none;
+}
+.btnmedium:hover{
+    background: -webkit-linear-gradient(#bebebe, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#bebebe, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#bebebe, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#bebebe, white); /* Standard syntax */
+    color:#7d7d7d;
+}
+.btnmedium{
+    width:70px;
+    height:70px;
+    box-shadow: 1px 1px 5px #888888;
+    background: -webkit-linear-gradient(#ffffff, #bebebe); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ffffff, #bebebe); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ffffff, #bebebe); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ffffff, #bebebe); /* Standard syntax */
+    border-radius: 9em;
+    font-weight: bold;
+    color: black;
+    font-size: 12px;
+    outline: none;
+}
+.btntiny:hover{
+    box-shadow: 1px 1px 5px #888888;
+    background: -webkit-linear-gradient(#bebebe, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#bebebe, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#bebebe, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#bebebe, white); /* Standard syntax */
+    color:#7d7d7d;
+    
+}
+.btntiny{
+    width:15px;
+    height:15px;
+    box-shadow: 1px 1px 5px #888888;
+    background: -webkit-linear-gradient(#ffffff, #bebebe); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ffffff, #bebebe); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ffffff, #bebebe); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ffffff, #bebebe); /* Standard syntax */
+    border-radius: 9em;
+    font-weight: bold;
+    color: red;
+    font-size: 9px;
+    
+}
+.btnsmall:hover{
+    box-shadow: 1px 1px 5px #888888;
+    background: -webkit-linear-gradient(#bebebe, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#bebebe, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#bebebe, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#bebebe, white); /* Standard syntax */
+    color:#7d7d7d;
+    
+}
+.btnsmall{
+    width:38px;
+    height:38px;
+    box-shadow: 1px 1px 5px #888888;
+    background: -webkit-linear-gradient(#ffffff, #bebebe); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ffffff, #bebebe); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ffffff, #bebebe); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ffffff, #bebebe); /* Standard syntax */
+    border-radius: 9em;
+    font-weight: bold;
+    color: black;
+    outline: none;
+}
+
+.icolink > img{
+    padding-right: 12px;
+}
+.icolink{
+    float:right;
+    margin-left:20px;
+    text-decoration: none;
+    color:white;
+    border:none;
+}
+#iconos{
+    width:300px;
+    height:30px;
+    float:right;
+    margin-top:15px;
+}
+#submenu{
+    padding: 0;
+    width: 938px;
+    height: 50px;
+    margin: 0 auto;
+    position:relative;
+    overflow: hidden;
+}
+.linea{
+    padding:0;
+    margin:0 auto;
+    width:100%;
+    float:left;
+    height:3px;
+    border-bottom: 1px solid darkgrey;
+    border-top: 1px solid darkgrey;
+    margin-top:10px;
+}
+
+#logo{
+    float:left;
+    width:270px;
+    height:112px;
+}
+
+#header h1{
+    float:left;
+    letter-spacing: 10px;
+    color: white;
+}
+#header{
+    padding: 0;
+    width: 938px;
+    height: 100px;
+    margin: 0 auto;
+    position:relative;
+    padding-top:50px;
+    overflow: hidden;
+}
+#backheader{
+    padding: 0;
+    margin: 0 auto;
+    position:relative;
+    width:100%;
+    height:220px;
+    background-color: black;
+    overflow: hidden;
+    z-index: 0;
+}
+.backfooter{
+    padding: 0;
+    width: 938px;
+    margin: 0 auto;
+    float:left;
+    height:150px;
+    background-color: white;
+    margin-top:100px; 
+    text-align: center;
+    color:dimgray;
+    padding-top:30px;
+    padding-bottom:30px;
+}
+.inputventas{
+    width: 100px; margin-right: 10px; margin-left:10px;
+    text-align: center;
+        
+}
+#tbVentas{
+    font-size: 12px;
+    margin-left: -150px;
+    width: 900px;
+    border-top:  1px solid lightgray;
+    border-left:  1px solid lightgray;
+    margin-bottom: 100px;
+}
+.ventasHeader{
+    text-shadow: 0px 1px 2px #888888;
+    text-align: center;
+    border-bottom:  1px solid lightgray;
+    border-right:  1px solid lightgray
+}
+#tbVentas  td{
+    text-align: center;
+    border-bottom:  1px solid lightgray;
+    border-right:  1px solid lightgray
+}
+
+.layoutVentas{
+    padding: 0;
+    width: 938px;
+    height: auto;
+    margin: 0 auto;
+    margin-top:15px; 
+    position:relative;
+    background: white;
+    border:0;
+    padding-left:250px;
+}
+.layout{
+    padding: 0;
+    width: 938px;
+    height: auto;
+    margin: 0 auto;
+    margin-top:15px; 
+    position:relative;
+    background: white;
+    border:0;
+}
+body{
+    background-color: white;
+    padding: 0;
+    margin: 0 auto;
+    height: auto;
+    width:auto;
+    border:0;
+}
+
+
+

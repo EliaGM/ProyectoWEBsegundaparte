@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:loadBundle basename="mensajes.genericos" var="msg" />
+
+    <h:head>
+        <h:outputStylesheet name="css/comunes.css" />
+        <h:outputStylesheet name="css/login.css" />
+        <h:outputScript name="js/generales.js" />
+        <title>TecnoLib.com</title>
+    </h:head>
+    <h:body>
+        <h:form prependId="false">
+            <div id="backheader">
+            <div id="header">
+                <h:panelGroup id="dividioma">
+                    <h:selectOneMenu value="#{datosSesion.language}">
+                        <f:selectItems value="#{registroBean.idiomas}"
+                                               var="idioma" 
+                                               itemLabel="#{msg[idioma]}"
+                                               itemValue="#{idioma}"/>
+                        <f:ajax render="@all" event="change" listener="#{registroBean.cambiarIdioma}"/>
+                    </h:selectOneMenu>
+                    
+                </h:panelGroup>
+                <h1><span style="font-size: 60px;margin-left: 200px">T</span>ecno</h1>
+                <img src="../resources/images/libros.png" id="logo"/>
+                <h1><span style="font-size: 60px">L</span>ib</h1>
+            </div>
+            <div class="linea"/>
+            <div id="submenu">
+                <h:outputText value='#{msg.welcome}  #{datosSesion.usuario}' rendered="#{iconos}" id="welcome"/>
+                <h:panelGroup id="iconos" rendered="#{iconos}">
+                    <h:panelGroup class="icolink">
+                        <div style="width:30px;margin-top: 5px;">
+                            <h:outputText value="#{datosSesion.totalItems}" style="width:50px ;position: absolute; top:0;margin-left:-15px;margin-top:5px ;color:white;margin-right: 10px; text-align: center; border-radius: 0.5em"/>
+                            <img src="../resources/images/carrito.png" width="20" height="20" style="margin-top: 5px;"/>
+                        </div>
+                    </h:panelGroup>
+
+                </h:panelGroup>
+            </div>
+
+        </div>
+
+            <div class="layout">
+
+                <div id="registro">
+                    <div id="tit_reg">
+                        <b><span style="font-size: 40px"><h:outputText value="#{msg.may_reg}"/></span><h:outputText value="#{msg.user_reg}"/></b>  
+                        <hr/>
+                    </div>
+                    <table class="tbRegistro" cellspacing="10">
+                        <tr>
+                            <td colspan="2">
+                                <b><h:outputText value="#{msg.user}"/></b><br/>
+                                <h:inputText value='#{registroBean.reg_usuario}' id="reg_usuario" required="true" immediate="true"
+                                             autocomplete="off" validatorMessage="#{msg.ValidarNombre}" binding="#{registroBean.txtusuario}"
+                                             styleClass="#{component.valid and registroBean.err_existe==false ? 'inputs_valid' : 'inputs_invalid'}"
+                                             >
+                                    <f:validateRegex pattern="[a-zA-Z0-9 ]{3,20}"/>
+                                    <f:ajax render="@this reg_err_usuario" event="change" immediate="true"/>
+                                </h:inputText> 
+                                <h:panelGroup style="border:red solid 1px; padding:10px 5px 10px 5px;margin-left:10px;" rendered="#{registroBean.err_existe}">
+                                    <h:outputText value="#{msg.err_existe}" class="error" />
+                                </h:panelGroup>
+                            </td>
+                        </tr>
+                        <tr styleClass="errorDatos">
+                            <td colspan="2">
+                                <h:message id="reg_err_usuario" for="reg_usuario"  class="error"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <b><h:outputText value="#{msg.name}"/></b>
+                                <h:inputText value='#{registroBean.reg_nombre}'  id="reg_nombre" required="true"  immediate="true"
+                                             autocomplete="off" validatorMessage="#{msg.ValidarNombre}" binding="#{registroBean.txtnombre}"
+                                             styleClass="#{component.valid ? 'inputs_valid' : 'inputs_invalid'}">
+                                    <f:validateRegex pattern="[a-zA-Z ]{3,20}"/>
+                                    <f:ajax render="@this reg_err_name" event="change"  immediate="true"/>
+                                </h:inputText> 
+                            </td>
+                            <td>
+                                <b><h:outputText value="#{msg.surname}"/></b>
+                                <h:inputText value='#{registroBean.reg_apellidos}'  id="reg_apellidos" required="true"  immediate="true"
+                                             autocomplete="off"  validatorMessage="#{msg.ValidarApellidos}" binding="#{registroBean.txtapellidos}"
+                                             styleClass="#{component.valid ? 'inputs_valid' : 'inputs_invalid'}">
+                                    <f:validateRegex pattern="[a-zA-Z ]{10,40}"/>
+                                    <f:ajax render="@this reg_err_surname" event="change" execute="@this"  immediate="true"/>
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr styleClass="errorDatos">
+                            <td>
+                                <h:message id="reg_err_name" for="reg_nombre"  class="error"/>
+                            </td>
+                            <td>
+                                <h:message id="reg_err_surname" for="reg_apellidos"  class="error"/>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b><h:outputText value="#{msg.address}"/></b>
+                                <h:inputText value='#{registroBean.reg_direccion}'  id="reg_direccion" required="true"  immediate="true"
+                                             autocomplete="off"  validatorMessage="#{msg.ValidarDireccion}" binding="#{registroBean.txtdireccion}"
+                                             styleClass="#{component.valid ? 'inputs_valid' : 'inputs_invalid'}">
+                                    <f:validateRegex pattern="([a-zA-Z]){1,3}\/([a-zA-Z ]){10,90}[n.]{2}([0-9]){1,3}[ ]+[p.]{2}([0-9]){1,3}"/>
+                                    <f:ajax render="@this reg_err_address" event="change" execute="@this"  immediate="true"/>
+                                </h:inputText>
+                            </td>
+                            <td>
+                                <b><h:outputText value="#{msg.states}"/></b>
+                                <h:selectOneMenu value="#{registroBean.reg_ciudad}" class="inputs_valid" id="select_ciudades"
+                                                 >
+                                    <f:selectItems value="#{registroBean.ciudades}"
+                                                   var="c" 
+                                                   itemLabel="#{c.ciudad}"
+                                                   itemValue="#{c.idciudad}"/>
+                                    <f:ajax render="@this"/>
+                                </h:selectOneMenu>  
+                            </td>
+                        </tr>
+                        <tr styleClass="errorDatos">
+                            <td>
+                                <h:message id="reg_err_address" for="reg_direccion"  class="error"/>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <b><h:outputText value="#{msg.telf}"/></b>
+                                <h:inputText value='#{registroBean.reg_telefono}'  id="reg_telefono" required="true"  immediate="true"
+                                             autocomplete="off" validatorMessage="#{msg.ValidarTelf}" binding="#{registroBean.txttelefono}"
+                                             styleClass="#{component.valid and registroBean.err_existe==false ? 'inputs_valid' : 'inputs_invalid'}">
+                                    <f:validateRegex pattern="[0-9]{9}"/>
+                                    <f:ajax render="@this reg_err_telf" event="change" execute="@this" immediate="true"/>
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr styleClass="errorDatos">
+                            <td>
+                                <h:message id="reg_err_telf" for="reg_telefono"  class="error"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b><h:outputText value="#{msg.email}"/></b>
+                                <h:inputText value='#{registroBean.reg_email}'  id="reg_email" required="true"  immediate="true"
+                                             autocomplete="off"   validatorMessage="#{msg.ValidarEmail}" binding="#{registroBean.txtemail}"
+                                             styleClass="#{component.valid ? 'inputs_valid' : 'inputs_invalid'}">
+                                    <f:validateRegex pattern="([a-zA-Z_0-9]){2,20}@{1}([a-zA-Z_0-9]){2,10}\.{1}([a-zA-Z]){2,3}"/>
+                                    <f:ajax render="@this reg_err_email" event="change" execute="@this"  immediate="true"/>
+                                </h:inputText>
+                            </td>
+                            <td>
+                                <b><h:outputText value="#{msg.pwd}"/></b>
+                                <h:inputText value='#{registroBean.reg_password}'  id="reg_password"   required="true"  immediate="true"
+                                             autocomplete="off"  validatorMessage="#{msg.ValidarPwd}" binding="#{registroBean.txtpwd}"
+                                             styleClass="#{component.valid ? 'inputs_valid' : 'inputs_invalid'}">
+                                    <f:validateRegex pattern="[a-zA-Z_0-9]{4,10}"/>
+                                    <f:ajax render="@this reg_err_pwd"  immediate="true"
+                                            event="change" execute="@this"/>
+                                </h:inputText> 
+                            </td>
+                        </tr>
+                        <tr styleClass="errorDatos">
+                            <td>
+                                <h:message id="reg_err_email" for="reg_email"  class="error"/>
+                                
+                            </td>
+                            <td>
+                                <h:message id="reg_err_pwd" for="reg_password"  class="error"/>
+                            </td>
+                            
+
+                        </tr>
+                    </table>
+                    <div id="ult_reg">
+                       <table class="tbRegistro">
+                        <tr>
+                            <td>
+                                <h:commandButton value="#{msg.cancelar}"  styleClass="btncuadrado"  action="#{registroBean.volverInicio}" immediate="true"/>
+                            </td>
+                            <td>
+                                <h:commandButton value="#{msg.btnsave}"  styleClass="btncuadrado"  action="#{registroBean.registrarse}" />
+                            </td>
+                            <td>
+                                <h:commandButton value="#{msg.clear}"  styleClass="btncuadrado" >
+                                    <f:ajax listener="#{registroBean.limpiar}" immediate="true" render="@form"/>
+                                </h:commandButton>
+                            </td>
+                             
+                        </tr>
+                    </table> 
+                    </div>
+                    
+                </div>
+                <div class="backfooter">
+                    <ui:include src="templates/pie.xhtml"/>
+                </div>
+            </div>
+        </h:form>
+
+    </h:body>
+</html>
+
+

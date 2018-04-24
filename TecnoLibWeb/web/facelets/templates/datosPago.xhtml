@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Pago Compra</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+
+            <h:panelGroup layout="block" id="cont_overlay" >
+                <table  id='tbpago'>
+                    <tr>
+                        <th style='background: black' colspan="4">
+                            <h:outputText value="#{msg.denvio}"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th><h:outputText value="#{msg.name} "/></th>
+                        <td colspan="3">
+                            <h:outputText value="#{usuarioBean.nombre}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h:outputText value="#{msg.surname} "/></th>
+                        <td colspan="3">
+                            <h:outputText value="#{usuarioBean.apellidos}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h:outputText value="#{msg.address} "/></th>
+                        <td colspan="3">
+                            <h:outputText value="#{usuarioBean.direccion}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h:outputText value="#{msg.states} "/></th>
+                        <td colspan="3">
+                            <h:selectOneMenu value="#{usuarioBean.ciudad}" disabled="true" style='height:15px; font-size: 11px'>
+                                <f:selectItems value="#{usuarioBean.ciudades}"
+                                               var="c" 
+                                               itemLabel="#{c.ciudad}"
+                                               itemValue="#{c.idciudad}"/>
+                            </h:selectOneMenu>  
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th style='background: black' colspan="4"><h:outputText value="#{msg.dcontacto}"/></th>
+                    </tr>
+                    <tr>
+                        <th><h:outputText value="#{msg.email} "/></th>
+                        <td colspan="3">
+                            <h:outputText value="#{usuarioBean.email}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><h:outputText value="#{msg.telf} "/></th>
+                        <td colspan="3">
+                            <h:outputText value="#{usuarioBean.telefono}"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="width:600px; height:190px; overflow:scroll;background: white;float:left;margin-left: 20px; z-index: 0;">
+                    <h:dataTable cellspacing="0" cellpadding="1"  width="580" id='tbItems2'
+                                 value="#{datosSesion.items}" var="it" 
+                                 columnClasses="tbItemscol1,tbItemscol2,tbItemscol3,tbItemscol4,tbItemscol5,tbItemscol6"
+                                 headerClass="facetpago" >
+
+                        <h:column>
+                            <f:facet name="header">#{msg.isbn}</f:facet>
+                            <h:outputText value="#{it.isbn}" style="#{it.err_stock ? 'color:red':'color:black'}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.title}</f:facet>
+                            <h:outputText value="#{it.titulo}" style="#{it.err_stock ? 'color:red':'color:black'}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.author}</f:facet>
+                            <h:outputText value="#{it.autor}" style="#{it.err_stock ? 'color:red':'color:black'}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.items}</f:facet>
+                            <h:outputText value="#{it.unidades}" style='padding-left:20px; padding-right: 10px;'/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">#{msg.price}</f:facet>
+                            <h:outputText value="#{it.total}"/>
+                        </h:column>
+
+                    </h:dataTable> 
+
+                </div>
+                <h:panelGrid cellspacing="3" cellpadding="0"  width="600" id="tbTotal2" columns="1"
+                             columnClasses="tbTotalcol1" style="margin-top: -15px">
+                    <h:column>
+                        <h:outputText value="#{msg.total}   :    "/>
+                        <h:outputText value="#{datosSesion.total}  "/>
+                        <h:outputText value="#{msg.currency}" />
+
+                    </h:column>
+                </h:panelGrid> 
+                
+                <table style="margin-top:20px; background: white; float: right;">
+                    <tr>
+                        <td>
+                            <h:commandButton  value="#{msg.aceptar}" styleClass="btncuadrado">
+                                <f:ajax render="@form" execute="@form" immediate="true" listener="#{tiendaBean.realizarPago}"/>
+                            </h:commandButton>
+                        </td>
+                        <td>
+                            <h:commandButton  value="#{msg.cancelar}" styleClass="btncuadrado">
+                                <f:ajax render="@form" execute="@form" immediate="true" listener="#{tiendaBean.cancelarCompra}"/>
+                            </h:commandButton>
+                           
+                        </td>
+                    </tr>
+                </table>
+                
+                
+            </h:panelGroup>
+        </ui:composition>
+    </h:body>
+</html>
+

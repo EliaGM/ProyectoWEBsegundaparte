@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:loadBundle basename="mensajes.genericos" var="msg" />
+    
+    <h:head>
+        <h:outputStylesheet name="css/comunes.css" />
+        <h:outputStylesheet name="css/login.css" />
+        <h:outputScript name="js/generales.js" />
+        <title>TecnoLib.com</title>
+    </h:head>
+    <h:body>
+        
+        <h:form prependId="false">
+            <ui:include src="templates/cabecera.xhtml"/>
+            
+            <div class="layout">
+                <div id="divlogin">
+                    <div>
+                        <h:graphicImage library="images" name="llave.png" style="margin-left:50px;margin-top:20px;"/>
+                        <b><span style="font-size: 40px">L</span>ogin</b>  
+                        <hr/>
+                    </div>
+                    <table>
+                        <tr>
+                            <th><b><h:outputText value="#{msg.user}" id="lbuser"/></b></th>
+                            <td>
+                                <h:inputText value="#{loginBean.usuario}" class="inputs_login" id="usuario"  required="true" 
+                                             style="#{component.valid ? '' : 'border:1px solid red;'}">
+                                    <f:validateBean for="usuario" />
+                                    <f:ajax render="@this err_user" />
+                                </h:inputText>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" valign="top" align="center">
+                                <h:message id="err_user" for="usuario"  class="error" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><b><h:outputText value="#{msg.pwd}" id="lbpwd"/></b></th>
+                            <td>
+                                <h:inputSecret value="#{loginBean.pwd}" class="inputs_login" id="pwd"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"  valign="top" align="center">
+                                <h:outputText value="#{msg.err_pwd}" class="error" rendered="#{loginBean.err_noexiste}"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <h:commandButton action='#{loginBean.doLogin}'  value="#{msg.goin}" styleClass="btncuadrado" 
+                                     id='adjbtnlogin' />
+                    <div>
+                        <table cellspacing="15">
+                            <tr>
+                                <td id="tdLink">
+                                    <h:commandLink action="#{loginBean.irARegistro}" id="lblink"  rendered="#{datosSesion.modoregistro}">
+                                        <h:graphicImage library="images" name="registro.png"/>#{msg.reg}
+                                    </h:commandLink> 
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="backfooter">
+                    <ui:include src="templates/pie.xhtml"/>
+                </div>
+            </div>
+        </h:form>
+          
+    </h:body>
+</html>
+
